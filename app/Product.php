@@ -25,3 +25,9 @@ class Product extends Model
      */
     protected $hidden = [];
 }
+
+
+
+
+
+

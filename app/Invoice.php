@@ -24,4 +24,25 @@ class Invoice extends Model
      * @var array
      */
     protected $hidden = [];
+
+    protected $appends = [
+        'total'
+    ];
+
+    public function invoiceItems() {
+        return $this->hasMany(InvoiceItem::class, 'invoice_id', 'id');
+    }
+
+    public function getTotalAttribute() {
+
+        $total = 0;
+
+        foreach ($this->invoiceItems as $product) {
+            $total += $product->price;
+        }
+
+        return $total;
+
+    }
+
 }

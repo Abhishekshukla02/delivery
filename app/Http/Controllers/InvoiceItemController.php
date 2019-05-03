@@ -6,6 +6,7 @@ use App\InvoiceItem;
 use App\Product;
 use App\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class InvoiceItemController extends Controller
 {
@@ -41,9 +42,52 @@ class InvoiceItemController extends Controller
         return response()->json($invoiceItem, 201);
     }
 
-    //update amount
-    public function update(Request $request) 
+    //update amount of the product
+    public function updateProductAmount(Request $request) 
     {
-        //update the recepit    
+        $this->validate($request, [
+            'invoice_id' => 'required|exists:invoices,id',
+            'amount' =>  'required|numeric'
+        ]);
+
+        $invoice_id = $request->get('invoice_id');
+        $amount = $request->get('amount');;
+
+        //check first if invoice is open
+        $invoice = Invoice::where('id','=',$invoice_id)
+                    ->where('status','!=','finished' )
+                    ->first()->toArray();
+
+        if(empty($invoice)) {
+            return response()->json("This invoice is already closed", 400);
+        }
+
+        //update amount for last product in invoice item
+        $invoice_item = InvoiceItem::where('invoice_id', $invoice_id)->orderBy('id', 'desc')->first();
+
+        try {
+            $invoice_item->price = $amount;
+            $invoice_item->save();
+        } catch(\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
+
+        return response()->json($invoice_item, 201);
+    }
+
+    //delete product from invoice
+    public function deleteInvoiceItem(Request $request, int $item_id)
+    {
+
+        $invoiceItem = InvoiceItem::where('invoice_items.id','=',$item_id)
+            ->leftJoin('invoices', 'invoice_items.invoice_id', '=', 'invoices.id')
+            ->where('invoices.status','!=', 'finished')
+            ->delete();
+
+        if($invoiceItem) {
+            return response()->json("Deleted successfully", 200);
+        } else {
+            return response()->json("Can not delete this product", 400);
+        }
     }
 }

@@ -1,21 +1,25 @@
-# Lumen PHP Framework
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+Steps for the execution of the project:
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+1. go to the project(delivery) dir from terminal
 
-## Official Documentation
+2. run the command “composer update
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+3. then run “php -S localhost:8000 -t public”
 
-## Security Vulnerabilities
+4. put the attached .env file in the root dir of project, and update database credentials
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+5. run “php artisan migrate”
 
-## License
+5. use this “api_token” in the header for auth
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+api_token : p2lbgWkFrykA4QyUmpHihzmc5BNzIABq
+
+For auth using api_token because once we will have register user can replace with jwt or other auths
+
+6. I am also sending JSON file for APIs mockup, just import in to the postman, then you will
+
+have all the APIs
+
+Api URL: http://localhost:8000/api
+

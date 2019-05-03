@@ -24,4 +24,9 @@ class InvoiceItem extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function invoice()
+    {
+        return $this->belongsTo('InvoiceItem');
+    }
 }

@@ -17,7 +17,6 @@ class CreateInvoiceTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->enum('status', array('new', 'draft', 'finished'))->default('new');
-            $table->double('total',11,2)->default(0);
             $table->timestamps();
         });
     }
