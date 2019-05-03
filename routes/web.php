@@ -18,6 +18,12 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
   $router->post('admin/product',  ['uses' => 'ProductController@create']);
   $router->get('admin/product',  ['uses' => 'ProductController@showAllProducts']);
-
   $router->get('product',['uses' => 'ProductController@getProduct']);
+  
+  $router->post('invoice',['uses' => 'InvoiceController@create']);
+  $router->put('invoice/{id}',['uses' => 'InvoiceController@update']);
+  
+  $router->post('invoice/item',['uses' => 'InvoiceItemController@create']);
+  $router->post('invoice/item',['uses' => 'InvoiceItemController@create']);
+
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductController extends Controller
 {
@@ -19,8 +20,7 @@ class ProductController extends Controller
             'name' => 'required',
             'barcode' => 'required|unique:products',
             'cost' =>  'required|numeric',
-            'vat_class' =>  'required|numeric'
-            
+            'vat_class' =>  'required|numeric' 
         ]);
 
         $product = Product::create($request->all());
@@ -32,6 +32,6 @@ class ProductController extends Controller
     {    
         $barcode = $request->query('barcode');
         $product = Product::where('barcode',$barcode)->first();
-        return response()->json($product, 201);   
+        return response()->json($product, 200);   
     }
 }
